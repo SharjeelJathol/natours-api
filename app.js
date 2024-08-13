@@ -4,6 +4,10 @@ const morgan=require("morgan")
 
 const app=express()
 
+// express Routers
+const tourRouter=express.Router()
+const userRouter=express.Router()
+
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
@@ -27,6 +31,9 @@ app.use((req, res, next)=>{
     console.log(req.requestTime)
     next()
 })
+
+app.use('/api/v1/tours', tourRouter)
+app.use('/api/v1/users', userRouter)
 
 // Route handlers
 const getAllTours=(req, res)=>{
@@ -158,24 +165,24 @@ const deleteUser=(req, res)=>{
 // app.patch('/api/v1/tours/:id', updateTour)
 // app.delete('/api/v1/tours/:id', deleteTour)
 
-app
-    .route("/api/v1/tours")
+tourRouter
+    .route("/")
     .get(getAllTours)
     .post(createTour)
 
-app
-    .route('/api/v1/tours/:id')
+tourRouter
+    .route('/:id')
     .get(getTour)
     .patch(updateTour)
     .delete(deleteTour)
 
-app 
-    .route('/api/v1/users')
+userRouter 
+    .route('/')
     .get(getAllUsers)
     .post(createUser)
 
-app
-    .route('/api/v1/users/:id')
+userRouter
+    .route('/:id')
     .get(getUser)
     .patch(updateUser)
     .delete(deleteUser)
