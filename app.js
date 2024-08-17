@@ -35,7 +35,4 @@ app.use('/api/v1/users', userRouter)
 // app.patch('/api/v1/tours/:id', updateTour)
 // app.delete('/api/v1/tours/:id', deleteTour)
 
-
-app.listen(8000, ()=>{
-    console.log("Server is listening at port 8000")
-})
+module.exports=app;
